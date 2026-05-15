@@ -1,11 +1,11 @@
 {
-  "name": "POSpagay",
-  "short_name": "POSpagay",
+  "name": "Balatero Rentals",
+  "short_name": "Balatero",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#0d0d0d",
   "theme_color": "#000000",
-  "description": "Offline-capable POS for quick sales and receipts",
+  "description": "Premium vehicle rental service",
   "icons": [
     {
       "src": "icons/icon.svg",
