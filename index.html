@@ -9,90 +9,170 @@
   <title>Balatero Rentals - Vehicle Rental</title>
   <style>
     :root {
-      --bg: #0d0d0d;
-      --card: #1a1a1a;
-      --text: #ffffff;
-      --muted: #a3a3a3;
-      --accent: #eab308;
-      --accent-hover: #ca8a04;
+      --bg: #0a0a0a;
+      --card: #141414;
+      --text: #fafafa;
+      --muted: #737373;
+      --accent: #facc15;
+      --accent-hover: #eab308;
       --success: #22c55e;
       --danger: #ef4444;
-      --booked: #ef4444;
-      --available: #22c55e;
+      --border: #262626;
+      --scrollbar-track: #1a1a1a;
+      --scrollbar-thumb: #333;
+      --scrollbar-thumb-hover: #444;
+      --available: #1a1a1a;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--scrollbar-thumb-hover);
+    }
+    
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
     
     header {
-      background: var(--card);
-      border-bottom: 1px solid #262626;
-      padding: 16px 24px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
       position: sticky;
       top: 0;
       z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    .logo { font-size: 20px; font-weight: 800; color: var(--accent); }
-    nav { display: flex; gap: 16px; align-items: center; }
-    .nav-link { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .logo { font-size: 18px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; white-space: nowrap; }
+    
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    nav { 
+      display: flex; 
+      gap: 12px; 
+      align-items: center; 
+      flex-wrap: wrap;
+    }
+    
+    .nav-link { 
+      color: var(--muted); 
+      text-decoration: none; 
+      font-weight: 500; 
+      font-size: 14px; 
+      white-space: nowrap;
+    }
+    
     .nav-link:hover, .nav-link.active { color: var(--accent); }
+    
+    /* Mobile Menu */
+    @media (max-width: 600px) {
+      .hamburger { display: block; }
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      nav.open { display: flex; }
+      nav .nav-link, nav .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
     .btn {
       background: var(--accent);
       color: #000;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background 0.15s;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
-    .btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
-    .btn-secondary { background: #333; color: #fff; }
-    .btn-secondary:hover { background: #444; }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-secondary { background: #262626; color: #fff; }
+    .btn-secondary:hover { background: #333; }
     .btn-success { background: var(--success); color: #fff; }
     .btn-danger { background: var(--danger); color: #fff; }
     
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .page { display: none; }
     .page.active { display: block; }
     
-    .hero { padding: 60px 0; text-align: center; }
-    .hero h1 { font-size: 48px; margin-bottom: 16px; color: var(--accent); }
-    .hero p { font-size: 18px; color: var(--muted); margin-bottom: 32px; }
+    .hero { padding: 40px 0; text-align: center; }
+    .hero h1 { font-size: 36px; margin-bottom: 12px; color: var(--accent); font-weight: 700; }
+    .hero p { font-size: 16px; color: var(--muted); }
     
-    .filters { display: flex; gap: 12px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+    .filters { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
     .filter-btn {
-      background: var(--card);
-      color: var(--text);
-      border: 1px solid #262626;
-      padding: 8px 20px;
-      border-radius: 24px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 20px;
       cursor: pointer;
       font-weight: 500;
+      font-size: 13px;
+      transition: all 0.15s;
     }
-    .filter-btn:hover { border-color: var(--accent); }
+    .filter-btn:hover { border-color: var(--accent); color: var(--text); }
     .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
     
-    .vehicles { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-bottom: 60px; }
+    .vehicles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
     .vehicle-card {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #262626;
-      transition: all 0.3s;
+      border: 1px solid var(--border);
     }
-    .vehicle-card:hover { transform: translateY(-4px); border-color: var(--accent); }
-    .vehicle-image { width: 100%; height: 200px; object-fit: cover; background: #1a1a1a; }
-    .vehicle-info { padding: 20px; }
-    .vehicle-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-    .vehicle-type { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
-    .vehicle-details { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-    .detail { font-size: 13px; color: var(--muted); background: #262626; padding: 4px 10px; border-radius: 4px; }
-    .vehicle-footer { display: flex; justify-content: space-between; align-items: center; }
-    .price { font-size: 24px; font-weight: 800; color: var(--accent); }
-    .price span { font-size: 14px; color: var(--muted); font-weight: 400; }
+    .vehicle-image { width: 100%; height: 180px; object-fit: cover; background: #1a1a1a; }
+    .vehicle-info { padding: 16px; }
+    .vehicle-name { font-size: 17px; font-weight: 600; margin-bottom: 2px; line-height: 1.3; }
+    .vehicle-type { color: var(--muted); font-size: 13px; margin-bottom: 10px; line-height: 1.3; }
+    .vehicle-details { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+    .detail { font-size: 12px; color: var(--muted); line-height: 1.3; }
+    .vehicle-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .price { font-size: 20px; font-weight: 700; color: var(--accent); }
+    .price span { font-size: 12px; color: var(--muted); font-weight: 400; }
     
     .modal {
       position: fixed;
@@ -100,141 +180,207 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 200;
-      padding: 24px;
+      padding: 16px;
     }
     .modal.open { display: flex; }
     .modal-content {
       background: var(--card);
-      border-radius: 16px;
-      max-width: 700px;
+      border-radius: 8px;
+      max-width: 600px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
     }
     .modal-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid #262626;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .modal-header h2 { font-size: 20px; }
-    .close-btn { background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer; }
-    .modal-body { padding: 24px; }
-    .modal-footer { padding: 16px 24px; border-top: 1px solid #262626; display: flex; gap: 12px; justify-content: flex-end; }
+    .modal-header h2 { font-size: 18px; font-weight: 600; }
+    .close-btn { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; }
+    .modal-body { padding: 20px; }
+    .modal-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
     
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: var(--muted); }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 500; color: var(--muted); font-size: 13px; }
     .form-group input, .form-group select {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #262626;
-      border-radius: 8px;
-      background: #0d0d0d;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
       color: var(--text);
-      font-size: 16px;
+      font-size: 14px;
     }
     
-    .success-message { text-align: center; padding: 20px; }
-    .success-icon { font-size: 64px; margin-bottom: 16px; }
-    .success-message h3 { font-size: 24px; margin-bottom: 8px; color: var(--success); }
+    .success-message { text-align: center; padding: 16px; }
+    .success-icon { font-size: 48px; margin-bottom: 12px; }
+    .success-message h3 { font-size: 18px; margin-bottom: 6px; color: var(--success); }
     
     /* Calendar Styles */
-    .calendar-container { margin-bottom: 24px; }
+    .calendar-container { margin-bottom: 20px; }
     .calendar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      padding: 0 8px;
+      margin-bottom: 12px;
     }
     .calendar-header button {
-      background: #333;
+      background: #262626;
       color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
+      padding: 6px 12px;
+      border-radius: 4px;
       cursor: pointer;
+      font-size: 13px;
     }
-    .calendar-header button:hover { background: #444; }
-    .calendar-month { font-size: 18px; font-weight: 600; }
+    .calendar-header button:hover { background: #333; }
+    .calendar-month { font-size: 15px; font-weight: 600; }
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
+      gap: 2px;
     }
     .calendar-day-header {
       text-align: center;
-      padding: 8px;
-      font-weight: 600;
+      padding: 6px;
+      font-weight: 500;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
     }
     .calendar-day {
       text-align: center;
-      padding: 8px;
-      border-radius: 6px;
+      padding: 6px;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 14px;
-      background: #262626;
+      font-size: 13px;
+      background: #1a1a1a;
       border: 1px solid transparent;
     }
     .calendar-day:hover { border-color: var(--accent); }
-    .calendar-day.past { opacity: 0.3; cursor: not-allowed; }
-    .calendar-day.booked { background: var(--booked); color: white; }
+    .calendar-day.past { opacity: 0.35; cursor: not-allowed; }
+    .calendar-day.booked { background: #dc2626; color: white; }
     .calendar-day.selected { background: var(--accent); color: black; font-weight: 600; }
-    .calendar-day.in-range { background: rgba(234, 179, 8, 0.3); border-color: var(--accent); }
+    .calendar-day.in-range { background: rgba(250, 204, 21, 0.3); border-color: var(--accent); }
     .calendar-legend {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       justify-content: center;
       margin-top: 12px;
       font-size: 12px;
+      color: var(--muted);
+      flex-wrap: wrap;
     }
-    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 6px;
+      white-space: nowrap;
+    }
     .legend-color {
-      width: 16px;
-      height: 16px;
-      border-radius: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
     }
     
-    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .stat-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #262626; }
-    .stat-label { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
-    .stat-value { font-size: 32px; font-weight: 800; color: var(--accent); }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: var(--card); padding: 16px; border-radius: 8px; border: 1px solid var(--border); }
+    .stat-label { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+    .stat-value { font-size: 26px; font-weight: 700; color: var(--accent); }
     
-    .login-container { display: flex; justify-content: center; padding: 40px 0; }
-    .login-card { background: var(--card); padding: 32px; border-radius: 16px; max-width: 400px; width: 100%; border: 1px solid #262626; }
-    .login-card h2 { text-align: center; margin-bottom: 24px; color: var(--accent); }
+    .login-container { display: flex; justify-content: center; padding: 32px 0; }
+    .login-card { background: var(--card); padding: 24px; border-radius: 8px; max-width: 360px; width: 100%; border: 1px solid var(--border); }
+    .login-card h2 { text-align: center; margin-bottom: 20px; color: var(--accent); font-size: 18px; }
     
     .bookings-table { width: 100%; border-collapse: collapse; }
-    .bookings-table th, .bookings-table td { padding: 12px; text-align: left; border-bottom: 1px solid #262626; }
-    .bookings-table th { color: var(--muted); font-weight: 600; }
-    .status-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .bookings-table th, .bookings-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .bookings-table th { color: var(--muted); font-weight: 500; }
+    .status-badge { 
+      padding: 4px 10px; 
+      border-radius: 10px; 
+      font-size: 11px; 
+      font-weight: 600;
+      display: inline-block;
+      line-height: 1.2;
+    }
     .status-pending { background: #f59e0b; color: #000; }
     .status-confirmed { background: var(--success); color: #fff; }
     .status-cancelled { background: var(--danger); color: #fff; }
-    .action-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-    .empty-state { text-align: center; padding: 60px; color: var(--muted); }
+    .action-buttons { 
+      display: flex; 
+      gap: 6px; 
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
     
-    footer { border-top: 1px solid #262626; padding: 40px 0; margin-top: 60px; text-align: center; }
-    footer h3 { font-size: 24px; margin-bottom: 16px; }
-    footer p { color: var(--muted); margin: 4px 0; }
+    footer { border-top: 1px solid var(--border); padding: 20px 0; margin-top: 32px; text-align: center; }
+    footer h3 { font-size: 15px; margin-bottom: 10px; font-weight: 600; }
+    footer p { color: var(--muted); margin: 2px 0; font-size: 12px; }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      header { padding: 10px 16px; }
+      .logo { font-size: 16px; }
+      nav { gap: 8px; }
+      .nav-link { font-size: 13px; }
+      .btn { padding: 8px 14px; font-size: 13px; }
+      
+      .hero { padding: 28px 0; }
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 14px; }
+      
+      .vehicles { grid-template-columns: 1fr; gap: 14px; }
+      .vehicle-image { height: 160px; }
+      
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat-card { padding: 12px; }
+      .stat-value { font-size: 22px; }
+      
+      .bookings-table { font-size: 12px; }
+      .bookings-table th, .bookings-table td { padding: 8px 6px; }
+      .action-buttons { gap: 4px; }
+      
+      .modal-content { border-radius: 6px; }
+      .modal-body { padding: 16px; }
+    }
+    
+    @media (max-width: 480px) {
+      header { padding: 8px 12px; }
+      .container { padding: 0 12px; }
+      .hero h1 { font-size: 24px; }
+      .vehicles { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+    }
+    
+    /* Improve touch targets */
+    button, .nav-link, .filter-btn, .calendar-day {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    .form-group input, .form-group select {
+      min-height: 44px;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">BALATERO Rentals</div>
-    <nav>
+    <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+    <nav id="navMenu">
       <a href="#" class="nav-link active" data-page="home">Home</a>
-      <a href="#" class="nav-link" data-page="admin">Admin</a>
-      <button class="btn" onclick="scrollToVehicles()">Rent Now</button>
+      <a href="#" class="nav-link" data-page="admin">Login</a>
+      <button class="btn" onclick="scrollToVehicles(); closeMobileMenu();">Rent Now</button>
     </nav>
   </header>
 
@@ -384,10 +530,18 @@
       </div>
     </div>
 
-    <!-- Admin Page -->
+    <!-- Login/Register Page -->
     <div id="adminPage" class="page">
       <section style="padding: 32px 0;">
+        <div id="loginContent"></div>
         <div id="adminContent"></div>
+      </section>
+    </div>
+    
+    <!-- My Bookings Page -->
+    <div id="myBookingsPage" class="page">
+      <section style="padding: 32px 0;">
+        <div id="myBookingsContent"></div>
       </section>
     </div>
   </main>
@@ -409,24 +563,49 @@
 
   <footer>
     <h3>Contact Us</h3>
-    <p>📞 +1 (555) 123-4567</p>
-    <p>💌 rentals@balateroelite.com</p>
-    <p>📍 123 Main Street, City, State 12345</p>
+    <p>📞 09040612186</p>
+    <p>💌 Pskindog@gmail.com</p>
+    <p>📍 0230 Lamdagan, Tagbilaran City, Bohol, 6300</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     console.log('✅ App started');
+    console.log('window.supabase exists:', !!window.supabase);
+    
+    function toggleMobileMenu() {
+      const nav = document.getElementById('navMenu');
+      if (nav) {
+        nav.classList.toggle('open');
+      }
+    }
+    
+    function closeMobileMenu() {
+      const nav = document.getElementById('navMenu');
+      if (nav) {
+        nav.classList.remove('open');
+      }
+    }
     
     const SUPABASE_URL = 'https://mtrzwbtsjmidiykulyfj.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10cnp3YnRzam1pZGl5a3VseWZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4MzcyMzQsImV4cCI6MjA5NDQxMzIzNH0.328THJMODAKsp6U7ZJsiC5-mrEYZCMNImTb6jnGbHqc';
     let supabaseClient;
     
     try {
-      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      console.log('✅ Supabase initialized');
+      if (window.supabase) {
+        console.log('Creating Supabase client...');
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+          auth: {
+            autoRefreshToken: false,
+            persistSession: false
+          }
+        });
+        console.log('✅ Supabase client initialized');
+      } else {
+        console.error('❌ window.supabase is not available!');
+      }
     } catch (e) {
-      console.log('⚠️ Supabase not available, using localStorage:', e);
+      console.error('❌ Error initializing Supabase:', e);
     }
     
     const vehicles = [
@@ -442,77 +621,302 @@
     let selectedVehicle = null;
     let bookings = [];
     let isAdminLoggedIn = false;
+    let adminTab = 'active';
+    let historyFilter = 'all';
+    let adminFilterVehicle = 'all';
+    let adminFilterDateFrom = '';
+    let adminFilterDateTo = '';
+    let users = [];
+    let currentUser = null;
     
-    async function loadBookings() {
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    
+    async function loadUsersFromSupabase() {
       try {
         if (supabaseClient) {
-          const { data, error } = await supabaseClient.from('bookings').select('*').order('created_at', { ascending: false });
+          console.log('📡 Loading users from Supabase...');
+          const { data, error } = await supabaseClient.from('users').select('*');
           if (!error && data) {
-            bookings = data;
-            console.log('✅ Loaded bookings from Supabase');
+            users = data;
+            console.log('✅ Loaded', users.length, 'users from Supabase');
             return;
           }
         }
       } catch (e) {
-        console.log('⚠️ Failed to load from Supabase, using localStorage');
+        console.log('⚠️ Error loading users from Supabase:', e);
       }
+      
+      try {
+        const saved = localStorage.getItem('balatero_users');
+        if (saved) users = JSON.parse(saved);
+      } catch (e) {
+        console.log('Error loading users from localStorage:', e);
+      }
+    }
+    
+    async function saveUserToSupabase(user) {
+      try {
+        if (supabaseClient) {
+          console.log('📡 Saving user to Supabase...');
+          console.log('User data to save:', user);
+          
+          const { data, error } = await supabaseClient.from('users').insert([
+            {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              password: user.password,
+              phone: user.phone,
+              created_at: user.createdAt
+            }
+          ]).select();
+          
+          console.log('Supabase response - Data:', data);
+          console.log('Supabase response - Error:', error);
+          
+          if (!error) {
+            console.log('✅ User saved to Supabase!');
+            return true;
+          } else {
+            console.error('❌ Error saving user to Supabase:', error);
+            alert('Error saving user to Supabase:\n' + JSON.stringify(error, null, 2));
+          }
+        } else {
+          console.log('⚠️ supabaseClient is null, not saving to Supabase');
+        }
+      } catch (e) {
+        console.error('⚠️ Exception saving user to Supabase:', e);
+        alert('Exception saving user:\n' + e);
+      }
+      
+      return false;
+    }
+    
+    async function loadUsers() {
+      await loadUsersFromSupabase();
+    }
+    
+    function saveUsers() {
+      localStorage.setItem('balatero_users', JSON.stringify(users));
+    }
+    
+    function loadCurrentUser() {
+      try {
+        const saved = localStorage.getItem('balatero_current_user');
+        if (saved) currentUser = JSON.parse(saved);
+      } catch (e) {
+        console.log('Error loading current user:', e);
+      }
+    }
+    
+    function saveCurrentUser() {
+      if (currentUser) {
+        localStorage.setItem('balatero_current_user', JSON.stringify(currentUser));
+      } else {
+        localStorage.removeItem('balatero_current_user');
+      }
+    }
+    
+    async function registerUser(name, email, password, phone) {
+      const existing = users.find(u => u.email === email);
+      if (existing) return { success: false, message: 'Email already registered!' };
+      
+      const user = {
+        id: generateUUID(),
+        name,
+        email,
+        password,
+        phone,
+        createdAt: new Date().toISOString()
+      };
+      users.push(user);
+      saveUsers();
+      
+      await saveUserToSupabase(user);
+      
+      currentUser = user;
+      saveCurrentUser();
+      return { success: true, user };
+    }
+    
+    async function loginUser(email, password) {
+      if (email === 'admin@demo.com' && password === 'demo123') {
+        isAdminLoggedIn = true;
+        return { success: true, isAdmin: true };
+      }
+      
+      const user = users.find(u => u.email === email && u.password === password);
+      if (user) {
+        currentUser = user;
+        saveCurrentUser();
+        return { success: true, isAdmin: false };
+      }
+      
+      return { success: false, message: 'Invalid email or password!' };
+    }
+    
+    function logoutUser() {
+      currentUser = null;
+      isAdminLoggedIn = false;
+      saveCurrentUser();
+    }
+    
+    function getUserBookings() {
+      if (!currentUser) return [];
+      return bookings.filter(b => b.customer_email === currentUser.email || b.customerEmail === currentUser.email);
+    }
+    
+    async function testSupabaseConnection() {
+      console.log('🔍 Starting Supabase test...');
+      console.log('URL:', SUPABASE_URL);
+      console.log('Key length:', SUPABASE_ANON_KEY.length);
+      console.log('Client exists:', !!supabaseClient);
+      
+      if (!supabaseClient) {
+        alert('❌ Supabase client not initialized!');
+        return;
+      }
+      
+      try {
+        alert('Testing Supabase connection... (check console for details)');
+        const testBooking = {
+          id: generateUUID(),
+          vehicle_id: '1',
+          days: 1,
+          vehicle_type: 'car',
+          vehicle_name: 'Test Vehicle',
+          customer_name: 'Test User',
+          customer_email: 'test@test.com',
+          customer_phone: '123456789',
+          pickup_date: new Date().toISOString().split('T')[0],
+          return_date: new Date().toISOString().split('T')[0],
+          total: 1000,
+          status: 'pending',
+          created_at: new Date().toISOString()
+        };
+        
+        console.log('📤 Test booking:', testBooking);
+        console.log('📤 Sending to Supabase...');
+        
+        const { data, error } = await supabaseClient.from('bookings').insert([testBooking]).select();
+        
+        console.log('📥 Response data:', data);
+        console.log('📥 Response error:', error);
+        
+        if (error) {
+          console.error('❌ Supabase Error:', JSON.stringify(error, null, 2));
+          alert('Supabase Error:\n' + JSON.stringify(error, null, 2));
+        } else {
+          console.log('✅ Test booking sent successfully!');
+          alert('✅ SUCCESS! Test booking sent to Supabase! Check your Table Editor!');
+          await loadBookings();
+        }
+      } catch (e) {
+        console.error('❌ Exception:', e);
+        alert('Exception:\n' + e);
+      }
+    }
+    
+    async function loadBookings() {
+      try {
+        if (supabaseClient) {
+          console.log('📥 Loading bookings from Supabase...');
+          const { data, error } = await supabaseClient.from('bookings').select('*').order('created_at', { ascending: false });
+          if (error) {
+            console.error('❌ Error loading from Supabase:', error);
+          } else if (data) {
+            bookings = data;
+            console.log('✅ Loaded', bookings.length, 'bookings from Supabase');
+            return;
+          }
+        }
+      } catch (e) {
+        console.error('⚠️ Exception loading from Supabase:', e);
+      }
+      console.log('📥 Loading bookings from localStorage...');
       bookings = JSON.parse(localStorage.getItem('balatero_bookings')) || [];
     }
     
     async function saveBooking(booking) {
       try {
         if (supabaseClient) {
+          console.log('📤 Saving booking to Supabase:', booking);
           const { error } = await supabaseClient.from('bookings').insert([booking]);
-          if (!error) {
+          if (error) {
+            console.error('❌ Error saving to Supabase:', error);
+          } else {
             console.log('✅ Saved booking to Supabase');
             await loadBookings();
             return;
           }
         }
       } catch (e) {
-        console.log('⚠️ Failed to save to Supabase, using localStorage');
+        console.error('⚠️ Exception saving to Supabase:', e);
       }
+      console.log('📤 Saving booking to localStorage...');
       bookings.unshift(booking);
       localStorage.setItem('balatero_bookings', JSON.stringify(bookings));
     }
     
     async function updateBookingStatus(id, status) {
+      console.log('Updating booking:', id, 'to status:', status);
+      
+      console.log('📝 Updating local data FIRST...');
+      const b = bookings.find(x => x.id === id);
+      if (!b) {
+        console.error('❌ Booking not found in local data');
+        alert('Booking not found!');
+        return;
+      }
+      
+      b.status = status;
+      localStorage.setItem('balatero_bookings', JSON.stringify(bookings));
+      renderAdminDashboard();
+      console.log('✅ Local data updated - UI refreshed!');
+      
       try {
         if (supabaseClient) {
+          console.log('📡 Updating in Supabase...');
           const { error } = await supabaseClient.from('bookings').update({ status }).eq('id', id);
-          if (!error) {
-            await loadBookings();
-            renderAdminDashboard();
-            return;
+          if (error) {
+            console.error('❌ Error updating in Supabase:', error);
+          } else {
+            console.log('✅ Updated in Supabase too!');
           }
         }
       } catch (e) {
-        console.log('⚠️ Failed to update in Supabase');
-      }
-      const b = bookings.find(x => x.id === id);
-      if (b) {
-        b.status = status;
-        localStorage.setItem('balatero_bookings', JSON.stringify(bookings));
-        renderAdminDashboard();
+        console.error('❌ Exception updating in Supabase:', e);
       }
     }
     
     async function deleteBookingFromDB(id) {
-      try {
-        if (supabaseClient) {
-          const { error } = await supabaseClient.from('bookings').delete().eq('id', id);
-          if (!error) {
-            await loadBookings();
-            renderAdminDashboard();
-            return;
-          }
-        }
-      } catch (e) {
-        console.log('⚠️ Failed to delete from Supabase');
-      }
+      console.log('Deleting booking:', id);
+      
+      console.log('📝 Deleting local data FIRST...');
       bookings = bookings.filter(x => x.id !== id);
       localStorage.setItem('balatero_bookings', JSON.stringify(bookings));
       renderAdminDashboard();
+      console.log('✅ Local data deleted - UI refreshed!');
+      
+      try {
+        if (supabaseClient) {
+          console.log('📡 Deleting from Supabase...');
+          const { error } = await supabaseClient.from('bookings').delete().eq('id', id);
+          if (error) {
+            console.error('❌ Error deleting from Supabase:', error);
+          } else {
+            console.log('✅ Deleted from Supabase too!');
+          }
+        }
+      } catch (e) {
+        console.error('❌ Exception deleting from Supabase:', e);
+      }
     }
     
     let calendarMonth = new Date().getMonth();
@@ -602,9 +1006,10 @@
         html += `
             </div>
             <div class="calendar-legend">
-              <div class="legend-item"><div class="legend-color" style="background: var(--available)"></div>Available</div>
-              <div class="legend-item"><div class="legend-color" style="background: var(--booked)"></div>Booked</div>
-              <div class="legend-item"><div class="legend-color" style="background: var(--accent)"></div>Selected</div>
+              <div class="legend-item"><div class="legend-color" style="background: #1a1a1a; border:1px solid #262626;"></div>Available</div>
+              <div class="legend-item"><div class="legend-color" style="background: #dc2626"></div>Booked</div>
+              <div class="legend-item"><div class="legend-color" style="background: #facc15"></div>Selected</div>
+              <div class="legend-item"><div class="legend-color" style="background: rgba(250, 204, 21, 0.3); border:1px solid #facc15;"></div>In Range</div>
             </div>
           </div>
         `;
@@ -705,30 +1110,50 @@
       tomorrow.setDate(tomorrow.getDate() + 1);
       
       try {
+        let prefillName = '';
+        let prefillEmail = '';
+        let prefillPhone = '';
+        let loginNote = '';
+        
+        if (currentUser) {
+          prefillName = currentUser.name;
+          prefillEmail = currentUser.email;
+          prefillPhone = currentUser.phone;
+        } else {
+          loginNote = `<p style="font-size:12px;color:var(--muted);margin-top:8px;">Tip: <a href="#" style="color:var(--accent);text-decoration:underline;" onclick="closeBookingModal(); switchPage('admin'); return false;">Create an account</a> to track your bookings!</p>`;
+        }
+        
         modalBody.innerHTML = `
           <h3 style="margin-bottom: 16px;">Availability Calendar</h3>
           <div id="calendarDisplay">${renderCalendar(id)}</div>
           
           <div style="border-top: 1px solid #262626; margin-top: 24px; padding-top: 24px;">
             <h3 style="margin-bottom: 16px;">Booking Details</h3>
-            <div class="form-group"><label>Your Name</label><input type="text" id="customerName"></div>
-            <div class="form-group"><label>Email</label><input type="email" id="customerEmail"></div>
-            <div class="form-group"><label>Phone</label><input type="tel" id="customerPhone"></div>
+            <div class="form-group"><label>Your Name</label><input type="text" id="customerName" value="${prefillName}"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="customerEmail" value="${prefillEmail}"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="customerPhone" value="${prefillPhone}"></div>
             <div class="form-group"><label>Pickup Date</label><input type="date" id="pickupDate" value="${today}"></div>
             <div class="form-group"><label>Return Date</label><input type="date" id="returnDate" value="${tomorrow.toISOString().split('T')[0]}"></div>
             <div id="totalDisplay"></div>
+            ${loginNote}
           </div>
         `;
         console.log('Modal body updated');
       } catch (e) {
         console.error('Error rendering modal:', e);
+        let prefillName2 = currentUser ? currentUser.name : '';
+        let prefillEmail2 = currentUser ? currentUser.email : '';
+        let prefillPhone2 = currentUser ? currentUser.phone : '';
+        let loginNote2 = currentUser ? '' : `<p style="font-size:12px;color:var(--muted);margin-top:8px;">Tip: <a href="#" style="color:var(--accent);text-decoration:underline;" onclick="closeBookingModal(); switchPage('admin'); return false;">Create an account</a> to track your bookings!</p>`;
+        
         modalBody.innerHTML = `
           <h3 style="margin-bottom: 16px;">Booking Details</h3>
-          <div class="form-group"><label>Your Name</label><input type="text" id="customerName"></div>
-          <div class="form-group"><label>Email</label><input type="email" id="customerEmail"></div>
-          <div class="form-group"><label>Phone</label><input type="tel" id="customerPhone"></div>
+          <div class="form-group"><label>Your Name</label><input type="text" id="customerName" value="${prefillName2}"></div>
+          <div class="form-group"><label>Email</label><input type="email" id="customerEmail" value="${prefillEmail2}"></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="customerPhone" value="${prefillPhone2}"></div>
           <div class="form-group"><label>Pickup Date</label><input type="date" id="pickupDate" value="${today}"></div>
           <div class="form-group"><label>Return Date</label><input type="date" id="returnDate" value="${tomorrow.toISOString().split('T')[0]}"></div>
+          ${loginNote2}
         `;
       }
       
@@ -771,7 +1196,10 @@
         const total = selectedVehicle.price * days;
 
         const booking = {
-          id: Date.now().toString(),
+          id: generateUUID(),
+          vehicle_id: selectedVehicle.id.toString(),
+          days: days,
+          vehicle_type: selectedVehicle.type,
           vehicle_name: selectedVehicle.name,
           customer_name: name,
           customer_email: email,
@@ -814,53 +1242,257 @@
       });
     }
 
+    let loginMode = 'login';
+    
     function switchPage(page) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      closeMobileMenu();
       
       if (page === 'home') {
         document.getElementById('homePage').classList.add('active');
         document.querySelector('[data-page="home"]').classList.add('active');
+      } else if (page === 'myBookings') {
+        if (!currentUser) {
+          switchPage('admin');
+          return;
+        }
+        document.getElementById('myBookingsPage').classList.add('active');
+        renderMyBookings();
       } else {
         document.getElementById('adminPage').classList.add('active');
         document.querySelector('[data-page="admin"]').classList.add('active');
-        if (!isAdminLoggedIn) {
-          renderAdminLogin();
-        } else {
+        
+        if (isAdminLoggedIn) {
           renderAdminDashboard();
+        } else if (currentUser) {
+          switchPage('myBookings');
+        } else {
+          loginMode = 'login';
+          renderLoginPage();
         }
       }
+      updateHeader();
     }
 
-    function renderAdminLogin() {
-      document.getElementById('adminContent').innerHTML = `
+    function updateHeader() {
+      const navMenu = document.getElementById('navMenu');
+      if (!navMenu) return;
+      
+      let navLinks = '<a href="#" class="nav-link active" data-page="home">Home</a>';
+      
+      if (currentUser) {
+        navLinks += `<a href="#" class="nav-link" data-page="myBookings">My Bookings</a>`;
+        navLinks += `<button class="btn btn-secondary" onclick="handleLogout()">Logout (${currentUser.name})</button>`;
+      } else if (isAdminLoggedIn) {
+        navLinks += `<button class="btn btn-secondary" onclick="handleLogout()">Logout (Admin)</button>`;
+      } else {
+        navLinks += `<a href="#" class="nav-link" data-page="admin">Login</a>`;
+      }
+      
+      navLinks += `<button class="btn" onclick="scrollToVehicles(); closeMobileMenu();">Rent Now</button>`;
+      navMenu.innerHTML = navLinks;
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.onclick = function(e) { e.preventDefault(); switchPage(this.dataset.page); };
+      });
+    }
+
+    function renderLoginPage() {
+      document.getElementById('loginContent').style.display = 'block';
+      document.getElementById('adminContent').style.display = 'none';
+      document.getElementById('loginContent').innerHTML = `
         <div class="login-container">
           <div class="login-card">
-            <h2>Admin Login</h2>
-            <div class="form-group"><label>Email</label><input type="email" id="adminEmail" value="admin@demo.com"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="adminPassword" value="demo123"></div>
-            <button class="btn" style="width:100%" onclick="adminLogin()">Login</button>
-            <p style="text-align:center; margin-top:16px; color:#a3a3a3; font-size:12px">Use: admin@demo.com / demo123</p>
+            <div style="display:flex; gap:8px; margin-bottom:24px;">
+              <button class="btn ${loginMode === 'login' ? '' : 'btn-secondary'}" style="flex:1;" onclick="loginMode='login'; renderLoginPage();">Login</button>
+              <button class="btn ${loginMode === 'register' ? '' : 'btn-secondary'}" style="flex:1;" onclick="loginMode='register'; renderLoginPage();">Register</button>
+            </div>
+            ${loginMode === 'login' ? `
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email">
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+              </div>
+              <button class="btn" style="width:100%;" onclick="handleLogin()">Login</button>
+            ` : `
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Enter your full name">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="regEmail" placeholder="Enter your email">
+              </div>
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="regPhone" placeholder="Enter your phone number">
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="regPassword" placeholder="Create a password">
+              </div>
+              <button class="btn" style="width:100%;" onclick="handleRegister()">Register</button>
+            `}
           </div>
         </div>
       `;
     }
 
-    function adminLogin() {
-      isAdminLoggedIn = true;
-      renderAdminDashboard();
+    function renderMyBookings() {
+      const userBookings = getUserBookings();
+      
+      let html = `
+        <div class="admin-header">
+          <h1>My Bookings</h1>
+          <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
+        </div>
+      `;
+      
+      if (userBookings.length === 0) {
+        html += '<div class="empty-state">No bookings yet</div>';
+      } else {
+        html += '<table class="bookings-table"><thead><tr><th>Vehicle</th><th>Dates</th><th>Total</th><th>Status</th></tr></thead><tbody>';
+        
+        userBookings.forEach(b => {
+          const vehicleName = b.vehicle_name || b.vehicleName;
+          const pickupDate = b.pickup_date || b.pickupDate;
+          const returnDate = b.return_date || b.returnDate;
+          const total = b.total;
+          
+          html += `
+            <tr>
+              <td>${vehicleName}</td>
+              <td>${new Date(pickupDate).toLocaleDateString()} - ${new Date(returnDate).toLocaleDateString()}</td>
+              <td>₱${total.toLocaleString()}</td>
+              <td><span class="status-badge status-${b.status}">${b.status}</span></td>
+            </tr>
+          `;
+        });
+        
+        html += '</tbody></table>';
+      }
+      
+      document.getElementById('myBookingsContent').innerHTML = html;
     }
 
+    async function handleLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      
+      if (!email || !password) {
+        alert('Please fill all fields!');
+        return;
+      }
+      
+      const result = await loginUser(email, password);
+      
+      if (result.success) {
+        if (result.isAdmin) {
+          updateHeader();
+          renderAdminDashboard();
+        } else {
+          updateHeader();
+          switchPage('myBookings');
+        }
+      } else {
+        alert(result.message);
+      }
+    }
+
+    async function handleRegister() {
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const password = document.getElementById('regPassword').value;
+      
+      if (!name || !email || !phone || !password) {
+        alert('Please fill all fields!');
+        return;
+      }
+      
+      const result = await registerUser(name, email, password, phone);
+      
+      if (result.success) {
+        updateHeader();
+        switchPage('myBookings');
+      } else {
+        alert(result.message);
+      }
+    }
+
+    function handleLogout() {
+      logoutUser();
+      updateHeader();
+      switchPage('home');
+    }
+
+    function renderAdminLogin() {
+      loginMode = 'login';
+      renderLoginPage();
+    }
+
+    function setAdminTab(tab) {
+      adminTab = tab;
+      historyFilter = 'all';
+      adminFilterVehicle = 'all';
+      adminFilterDateFrom = '';
+      adminFilterDateTo = '';
+      renderAdminDashboard();
+    }
+    
+    function setAdminVehicleFilter(vehicleId) {
+      adminFilterVehicle = vehicleId;
+      renderAdminDashboard();
+    }
+    
+    function setAdminDateFrom(date) {
+      adminFilterDateFrom = date;
+      renderAdminDashboard();
+    }
+    
+    function setAdminDateTo(date) {
+      adminFilterDateTo = date;
+      renderAdminDashboard();
+    }
+    
+    function clearAdminFilters() {
+      adminFilterVehicle = 'all';
+      adminFilterDateFrom = '';
+      adminFilterDateTo = '';
+      renderAdminDashboard();
+    }
+    
+    function setHistoryFilter(filter) {
+      historyFilter = filter;
+      renderAdminDashboard();
+    }
+    
     function renderAdminDashboard() {
+      document.getElementById('loginContent').style.display = 'none';
+      document.getElementById('adminContent').style.display = 'block';
+      
       const total = bookings.length;
       const pending = bookings.filter(b => b.status === 'pending').length;
       const confirmed = bookings.filter(b => b.status === 'confirmed').length;
       const revenue = bookings.filter(b => b.status === 'confirmed').reduce((s, b) => s + b.total, 0);
 
+      let vehicleOptions = '<option value="all">All Vehicles</option>';
+      vehicles.forEach(v => {
+        vehicleOptions += `<option value="${v.id}" ${adminFilterVehicle == v.id ? 'selected' : ''}>${v.name}</option>`;
+      });
+
       document.getElementById('adminContent').innerHTML = `
         <div class="admin-header">
           <h1>Admin Dashboard</h1>
-          <button class="btn btn-secondary" onclick="clearAllBookings()">Clear All</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-secondary" onclick="clearAdminFilters()">Clear Filters</button>
+            ${adminTab === 'history' ? `<button class="btn btn-secondary" onclick="clearHistoryBookings()">Clear History</button>` : ''}
+            <button class="btn btn-secondary" onclick="clearAllBookings()">Clear All</button>
+          </div>
         </div>
         <div class="stats">
           <div class="stat-card"><div class="stat-label">Total Bookings</div><div class="stat-value">${total}</div></div>
@@ -868,22 +1500,177 @@
           <div class="stat-card"><div class="stat-label">Confirmed</div><div class="stat-value">${confirmed}</div></div>
           <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-value">₱${revenue.toLocaleString()}</div></div>
         </div>
-        <h2 style="margin:0 0 16px">Bookings</h2>
+        
+        <div style="display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap; align-items:center;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn ${adminTab === 'active' ? '' : 'btn-secondary'}" onclick="setAdminTab('active')">Active</button>
+            <button class="btn ${adminTab === 'history' ? '' : 'btn-secondary'}" onclick="setAdminTab('history')">History</button>
+          </div>
+        </div>
+        
+        <div style="display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap; align-items:flex-end;">
+          <div class="form-group" style="margin-bottom:0; min-width:200px;">
+            <label style="margin-bottom:4px; font-size:12px;">Vehicle</label>
+            <select id="adminVehicleFilter" onchange="setAdminVehicleFilter(this.value)">
+              ${vehicleOptions}
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0; min-width:160px;">
+            <label style="margin-bottom:4px; font-size:12px;">From Date</label>
+            <input type="date" id="adminDateFrom" value="${adminFilterDateFrom}" onchange="setAdminDateFrom(this.value)">
+          </div>
+          <div class="form-group" style="margin-bottom:0; min-width:160px;">
+            <label style="margin-bottom:4px; font-size:12px;">To Date</label>
+            <input type="date" id="adminDateTo" value="${adminFilterDateTo}" onchange="setAdminDateTo(this.value)">
+          </div>
+        </div>
+        
+        ${adminTab === 'history' ? `
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+          <button class="btn ${historyFilter === 'all' ? '' : 'btn-secondary'}" style="font-size:13px; padding:6px 14px;" onclick="setHistoryFilter('all')">All</button>
+          <button class="btn ${historyFilter === 'confirmed' ? '' : 'btn-secondary'}" style="font-size:13px; padding:6px 14px;" onclick="setHistoryFilter('confirmed')">Confirmed</button>
+          <button class="btn ${historyFilter === 'cancelled' ? '' : 'btn-secondary'}" style="font-size:13px; padding:6px 14px;" onclick="setHistoryFilter('cancelled')">Cancelled</button>
+        </div>
+        ` : ''}
+        
+        ${adminTab === 'active' ? renderPendingSection() : ''}
+        
         <div id="bookingsContainer">${renderBookingsTable()}</div>
       `;
-    }
-
-    function renderBookingsTable() {
-      if (bookings.length === 0) return '<div class="empty-state">No bookings yet</div>';
       
-      let html = '<table class="bookings-table"><thead><tr><th>Customer</th><th>Vehicle</th><th>Dates</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
-      bookings.forEach(b => {
+      setTimeout(attachButtonListeners, 100);
+    }
+    
+    function renderPendingSection() {
+      const pendingBookings = bookings.filter(b => b.status === 'pending');
+      if (pendingBookings.length === 0) return '';
+      
+      let html = '<h3 style="font-size:16px; margin-bottom:12px; color:#fff; display:flex; align-items:center; gap:8px;"><span style="width:10px; height:10px; background:#f59e0b; border-radius:50%;"></span> Pending Bookings</h3>';
+      html += '<table class="bookings-table" style="margin-bottom:24px;"><thead><tr><th>Customer</th><th>Vehicle</th><th>Dates</th><th>Total</th><th>Actions</th></tr></thead><tbody>';
+      
+      pendingBookings.forEach(b => {
         const customerName = b.customer_name || b.customerName;
         const customerEmail = b.customer_email || b.customerEmail;
         const vehicleName = b.vehicle_name || b.vehicleName;
         const pickupDate = b.pickup_date || b.pickupDate;
         const returnDate = b.return_date || b.returnDate;
         const total = b.total;
+        const bookingId = b.id;
+        
+        html += `
+          <tr>
+            <td><strong>${customerName}</strong><br><span style="color:#a3a3a3; font-size:12px">${customerEmail}</span></td>
+            <td>${vehicleName}</td>
+            <td>${new Date(pickupDate).toLocaleDateString()} - ${new Date(returnDate).toLocaleDateString()}</td>
+            <td>₱${total.toLocaleString()}</td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-success" data-action="confirm" data-id="${bookingId}">Confirm</button>
+                <button class="btn btn-danger" data-action="cancel" data-id="${bookingId}">Cancel</button>
+                <button class="btn btn-secondary" data-action="delete" data-id="${bookingId}">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+      
+      html += '</tbody></table>';
+      return html;
+    }
+    
+    function attachButtonListeners() {
+      console.log('🔗 Attaching button listeners...');
+      
+      const confirmBtns = document.querySelectorAll('[data-action="confirm"]');
+      console.log('Found', confirmBtns.length, 'Confirm buttons');
+      confirmBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('🔘 Confirm button clicked for ID:', this.dataset.id);
+          updateBookingStatus(this.dataset.id, 'confirmed');
+        });
+      });
+      
+      const cancelBtns = document.querySelectorAll('[data-action="cancel"]');
+      console.log('Found', cancelBtns.length, 'Cancel buttons');
+      cancelBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('🔘 Cancel button clicked for ID:', this.dataset.id);
+          updateBookingStatus(this.dataset.id, 'cancelled');
+        });
+      });
+      
+      const deleteBtns = document.querySelectorAll('[data-action="delete"]');
+      console.log('Found', deleteBtns.length, 'Delete buttons');
+      deleteBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('🔘 Delete button clicked for ID:', this.dataset.id);
+          deleteBookingFromDB(this.dataset.id);
+        });
+      });
+      
+      console.log('✅ All button listeners attached!');
+    }
+
+    function renderBookingsTable() {
+      let filteredBookings;
+      
+      if (adminTab === 'active') {
+        filteredBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'pending');
+      } else {
+        let base = bookings.filter(b => b.status === 'cancelled' || new Date(b.return_date || b.returnDate) < new Date());
+        if (historyFilter === 'confirmed') {
+          filteredBookings = base.filter(b => b.status === 'confirmed');
+        } else if (historyFilter === 'cancelled') {
+          filteredBookings = base.filter(b => b.status === 'cancelled');
+        } else {
+          filteredBookings = base;
+        }
+      }
+      
+      if (adminFilterVehicle !== 'all') {
+        filteredBookings = filteredBookings.filter(b => {
+          const vehicle = vehicles.find(v => v.name === (b.vehicle_name || b.vehicleName));
+          return vehicle && vehicle.id == adminFilterVehicle;
+        });
+      }
+      
+      if (adminFilterDateFrom) {
+        const fromDate = new Date(adminFilterDateFrom);
+        filteredBookings = filteredBookings.filter(b => {
+          const pickupDate = new Date(b.pickup_date || b.pickupDate);
+          return pickupDate >= fromDate;
+        });
+      }
+      
+      if (adminFilterDateTo) {
+        const toDate = new Date(adminFilterDateTo);
+        filteredBookings = filteredBookings.filter(b => {
+          const returnDate = new Date(b.return_date || b.returnDate);
+          return returnDate <= toDate;
+        });
+      }
+      
+      if (filteredBookings.length === 0) {
+        return '<div class="empty-state">No bookings match these filters</div>';
+      }
+      
+      let html = '<table class="bookings-table"><thead><tr><th>Customer</th><th>Vehicle</th><th>Dates</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+      filteredBookings.forEach(b => {
+        const customerName = b.customer_name || b.customerName;
+        const customerEmail = b.customer_email || b.customerEmail;
+        const vehicleName = b.vehicle_name || b.vehicleName;
+        const pickupDate = b.pickup_date || b.pickupDate;
+        const returnDate = b.return_date || b.returnDate;
+        const total = b.total;
+        const bookingId = b.id;
+        
+        const isHistory = adminTab === 'history';
         
         html += `
           <tr>
@@ -894,9 +1681,11 @@
             <td><span class="status-badge status-${b.status}">${b.status}</span></td>
             <td>
               <div class="action-buttons">
-                ${b.status === 'pending' ? `<button class="btn btn-success" onclick="updateBookingStatus('${b.id}', 'confirmed')">Confirm</button>` : ''}
-                ${b.status !== 'cancelled' ? `<button class="btn btn-danger" onclick="updateBookingStatus('${b.id}', 'cancelled')">Cancel</button>` : ''}
-                <button class="btn btn-secondary" onclick="deleteBookingFromDB('${b.id}')">Delete</button>
+                ${isHistory ? '' : `
+                  ${b.status === 'pending' ? `<button class="btn btn-success" data-action="confirm" data-id="${bookingId}">Confirm</button>` : ''}
+                  ${b.status !== 'cancelled' ? `<button class="btn btn-danger" data-action="cancel" data-id="${bookingId}">Cancel</button>` : ''}
+                  <button class="btn btn-secondary" data-action="delete" data-id="${bookingId}">Delete</button>
+                `}
               </div>
             </td>
           </tr>
@@ -906,11 +1695,70 @@
       return html;
     }
 
-    function clearAllBookings() {
+    async function clearAllBookings() {
       if (confirm('Clear ALL bookings?')) {
+        console.log('🧹 Clearing ALL bookings...');
+        
+        const bookingsToDelete = [...bookings];
+        
         bookings = [];
         localStorage.setItem('balatero_bookings', JSON.stringify(bookings));
         renderAdminDashboard();
+        console.log('✅ Cleared local data!');
+        
+        try {
+          if (supabaseClient && bookingsToDelete.length > 0) {
+            console.log('📡 Clearing', bookingsToDelete.length, 'bookings from Supabase...');
+            for (let i = 0; i < bookingsToDelete.length; i++) {
+              const booking = bookingsToDelete[i];
+              console.log('Deleting booking', i + 1, '/', bookingsToDelete.length, ':', booking.id);
+              const { error } = await supabaseClient.from('bookings').delete().eq('id', booking.id);
+              if (error) {
+                console.error('❌ Error deleting booking', booking.id, ':', error);
+              } else {
+                console.log('✅ Deleted booking', booking.id);
+              }
+            }
+            console.log('✅ Done clearing from Supabase!');
+          }
+        } catch (e) {
+          console.error('❌ Exception clearing from Supabase:', e);
+        }
+      }
+    }
+
+    async function clearHistoryBookings() {
+      if (confirm('Clear ONLY history bookings?')) {
+        console.log('🧹 Clearing HISTORY bookings...');
+        
+        const historyBookings = bookings.filter(b => 
+          b.status === 'cancelled' || new Date(b.return_date || b.returnDate) < new Date()
+        );
+        const historyIdsToDelete = historyBookings.map(b => b.id);
+        
+        bookings = bookings.filter(b => !historyIdsToDelete.includes(b.id));
+        localStorage.setItem('balatero_bookings', JSON.stringify(bookings));
+        renderAdminDashboard();
+        console.log('✅ Cleared local history data!');
+        
+        try {
+          if (supabaseClient && historyIdsToDelete.length > 0) {
+            console.log('📡 Clearing', historyIdsToDelete.length, 'history bookings from Supabase...');
+            for (let i = 0; i < historyIdsToDelete.length; i++) {
+              const id = historyIdsToDelete[i];
+              console.log('Deleting history booking', i + 1, '/', historyIdsToDelete.length, ':', id);
+              const { error } = await supabaseClient.from('bookings').delete().eq('id', id);
+              if (error) {
+                console.error('❌ Error deleting history booking', id, ':', error);
+              } else {
+                console.log('✅ Deleted history booking', id);
+              }
+            }
+            console.log('✅ Done clearing history from Supabase!');
+          }
+        } catch (e) {
+          console.error('❌ Exception clearing history from Supabase:', e);
+        }
       }
     }
 
@@ -920,7 +1768,10 @@
 
     window.onload = async function() {
       console.log('✅ Page fully loaded');
+      await loadUsers();
+      loadCurrentUser();
       await loadBookings();
+      updateHeader();
       
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.onclick = function() { filterVehicles(this.dataset.filter); };

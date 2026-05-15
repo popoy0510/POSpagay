@@ -3,9 +3,9 @@
   "short_name": "Balatero",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0d0d0d",
-  "theme_color": "#000000",
-  "description": "Premium vehicle rental service",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "description": "Vehicle rental service",
   "icons": [
     {
       "src": "icons/icon.svg",
